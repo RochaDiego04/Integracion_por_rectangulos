@@ -16,7 +16,8 @@ public class Main {
         for (int i = 0; i < objRectangulo.getNumeroRectangulos(); i++) {
             System.out.println(objRectangulo.getIteraciones(i));
         }
-        
-        System.out.println("Por la izquierda: " + objRectangulo.por_Izquierda());
+        objRectangulo.por_Derecha();
+        objRectangulo.FIX();
+        System.out.println("Por la izquierda: " + objRectangulo.getAproximacion());
     }
 }

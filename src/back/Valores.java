@@ -1,5 +1,6 @@
 package back;
 
+import java.text.DecimalFormat;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
@@ -9,6 +10,15 @@ public class Valores {
     private String funcion;//Limite
     private double limiteInferior;//a
     private double limiteSuperior;//b
+    private double aproximacion;
+
+    public double getAproximacion() {
+        return aproximacion;
+    }
+
+    public void setAproximacion(double aproximacion) {
+        this.aproximacion = aproximacion;
+    }
     private double base;//BASE RECTANGULO
     private double altura;//ALTURA RECTANGULO
     private int numeroRectangulos;//n
@@ -126,35 +136,38 @@ public class Valores {
                     .build()
                     .setVariable("x", getIteraciones(i));
 
-            evaluaciones[i] = expression.evaluate();//Evalúa nuestra función.
+            evaluaciones[i] = expression.evaluate(); //Evalúa nuestra función.
         }
     }
 
+    public void FIX() {
+        DecimalFormat FIX = new DecimalFormat("0.000");
+        this.setAproximacion(Double.parseDouble(FIX.format(this.getAproximacion())));
+        
+    }
+
     //Calcular extremo izquierdo
-    public double por_Izquierda() {
+    public void por_Izquierda() {
         double suma = 0;
-        double resultado = 0;
 
         evaluaciones();
         for (int i = 0; i < getNumeroRectangulos() - 1; i++) {
             suma += getEvaluaciones(i);
         }
-        resultado = getDeltaX() * suma;
 
-        return resultado;
+        this.setAproximacion(getDeltaX() * suma);
     }
 
     //Calcular extremo derecho
-    public double por_Derecha() {
+    public void por_Derecha() {
         double suma = 0;
-        double resultado = 0;
 
-        for (int i = 1; i <= getNumeroRectangulos(); i++) {
-            suma += evaluaciones[i];
+        evaluaciones();
+        for (int i = 1; i < getNumeroRectangulos(); i++) {
+            suma += getEvaluaciones(i);
         }
-        resultado = getDeltaX() * suma;
 
-        return resultado;
+        this.setAproximacion(getDeltaX() * suma);
     }
 
     public String mostrar_Datos() {
