@@ -11,5 +11,10 @@ public class Main {
          objRectangulo.setLimiteSuperior(2);
          objRectangulo.setNumeroRectangulos(4);
          System.out.println(objRectangulo.mostrar_Datos());
+         
+         objRectangulo.iteraciones();
+        for (int i = 0; i < objRectangulo.getNumeroRectangulos(); i++) {
+            System.out.println(objRectangulo.getIteraciones(i));
+        }
     }
 }

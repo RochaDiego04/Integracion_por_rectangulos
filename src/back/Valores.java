@@ -62,7 +62,7 @@ public class Valores {
     }
 
     public void setNumeroRectangulos(int numeroRectangulos) {
-        this.numeroRectangulos = numeroRectangulos;
+        this.numeroRectangulos = numeroRectangulos + 1;
     }
 
     public double getDeltaX() {
@@ -98,7 +98,7 @@ public class Valores {
     }
 
     public void calcular_DeltaX() {
-        setDeltaX((getLimiteSuperior() - getLimiteInferior()) / getNumeroRectangulos());
+        setDeltaX((getLimiteSuperior() - getLimiteInferior()) / (getNumeroRectangulos() - 1));
     }
 
     public double calcular_Area() {
@@ -107,27 +107,25 @@ public class Valores {
         return area;
     }
 
-    private void iteraciones() {
-
+    public void iteraciones() {
         this.calcular_DeltaX();
-//        this.iteraciones[0] = this.getLimiteInferior();
-        this.iteraciones = new double[this.getNumeroRectangulos()]; // 7
-
-        for (int i = 0; i < this.getNumeroRectangulos(); i++) {
-            this.iteraciones[i] += this.iteraciones[i] + this.getDeltaX();//Entra la iteración con su valor.
+        this.iteraciones = new double[this.getNumeroRectangulos()];
+        this.iteraciones[0] = this.getLimiteInferior();
+        for (int i = 1; i < getNumeroRectangulos(); i++) {
+            this.iteraciones[i] = this.iteraciones[i - 1] + this.getDeltaX();
         }
     }
 
     private void evaluaciones() {
         Expression expression;
         this.iteraciones();
-        
-        for (int i=0; i <= this.getNumeroRectangulos(); i++) {
-            expression = new ExpressionBuilder(this.getFuncion()) 
+
+        for (int i = 0; i <= this.getNumeroRectangulos(); i++) {
+            expression = new ExpressionBuilder(this.getFuncion())
                     .variables("X")
                     .build()
                     .setVariable("X", iteraciones[i]);
-            
+
             evaluaciones[i] = expression.evaluate();//Evalúa nuestra función.
         }
     }
@@ -141,7 +139,7 @@ public class Valores {
             suma += getEvaluaciones(i);
         }
         resultado = getDeltaX() * suma;
-        
+
         return resultado;
     }
 
@@ -149,23 +147,23 @@ public class Valores {
     public double por_Derecha() {
         double suma = 0;
         double resultado = 0;
-        
+
         for (int i = 1; i <= getNumeroRectangulos(); i++) {
             suma += evaluaciones[i];
         }
         resultado = getDeltaX() * suma;
-        
+
         return resultado;
     }
-    
+
     public String mostrar_Datos() {
         String datos = "";
-        
-        datos += "Funcion :" + getFuncion() + "\n" + 
-                 "Limite Inferior:" + getLimiteInferior()+ "\n" +
-                 "Limite Superior: " + getLimiteSuperior() + "\n" +
-                 "Numero de rectangulos: " + getNumeroRectangulos() + "\n";
+
+        datos += "Funcion :" + getFuncion() + "\n"
+                + "Limite Inferior:" + getLimiteInferior() + "\n"
+                + "Limite Superior: " + getLimiteSuperior() + "\n"
+                + "Numero de rectangulos: " + getNumeroRectangulos() + "\n";
         return datos;
-    }   
+    }
 
 }
