@@ -11,20 +11,13 @@ public class Valores {
     private double limiteInferior;//a
     private double limiteSuperior;//b
     private double aproximacion;
-
-    public double getAproximacion() {
-        return aproximacion;
-    }
-
-    public void setAproximacion(double aproximacion) {
-        this.aproximacion = aproximacion;
-    }
     private double base;//BASE RECTANGULO
     private double altura;//ALTURA RECTANGULO
     private int numeroRectangulos;//n
     private double deltaX;//h=(superior - inferio)/numeroRectangulos
     private double[] iteraciones;//La cantidad de iteraciones que se realizarán
     private double[] evaluaciones;//Cantidad de evaluaciones por iteración.
+    private String FIX;
 
     //getters y setters
     public String getFuncion() {
@@ -50,7 +43,14 @@ public class Valores {
     public void setLimiteSuperior(double limiteSuperior) {
         this.limiteSuperior = limiteSuperior;
     }
+    
+    public double getAproximacion() {
+        return aproximacion;
+    }
 
+    public void setAproximacion(double aproximacion) {
+        this.aproximacion = aproximacion;
+    }
     public double getBase() {
         return base;
     }
@@ -107,14 +107,16 @@ public class Valores {
         this.evaluaciones = evaluaciones;
     }
 
-    public void calcular_DeltaX() {
-        setDeltaX((getLimiteSuperior() - getLimiteInferior()) / (getNumeroRectangulos() - 1));
+    public String getFIX() {
+        return FIX;
     }
 
-    public double calcular_Area() {
-        double area;
-        area = (getBase() * getAltura());
-        return area;
+    public void setFIX(String FIX) {
+        this.FIX = FIX;
+    }
+
+    public void calcular_DeltaX() {
+        setDeltaX((getLimiteSuperior() - getLimiteInferior()) / (getNumeroRectangulos() - 1));
     }
 
     public void iteraciones() {
@@ -126,7 +128,7 @@ public class Valores {
         }
     }
 
-    private void evaluaciones() {
+    public void evaluaciones() {
         Expression expression;
         this.iteraciones();
         this.evaluaciones = new double[this.getNumeroRectangulos()];
@@ -139,11 +141,16 @@ public class Valores {
             evaluaciones[i] = expression.evaluate(); //Evalúa nuestra función.
         }
     }
-
-    public void FIX() {
-        DecimalFormat FIX = new DecimalFormat("0.000");
-        this.setAproximacion(Double.parseDouble(FIX.format(this.getAproximacion())));
-        
+    
+    public void calcular_FIX(){
+        String cadena = "0.";
+        if(Integer.parseInt(this.getFIX()) > 0){
+            for (int i = 0; i < Integer.parseInt(this.getFIX()); i++) {
+                cadena = cadena + "0";
+            }
+         DecimalFormat FIX = new DecimalFormat(cadena);
+         this.setAproximacion(Double.parseDouble(FIX.format(this.getAproximacion())));
+        }
     }
 
     //Calcular extremo izquierdo
@@ -176,7 +183,8 @@ public class Valores {
         datos += "Funcion :" + getFuncion() + "\n"
                 + "Limite Inferior:" + getLimiteInferior() + "\n"
                 + "Limite Superior: " + getLimiteSuperior() + "\n"
-                + "Numero de rectangulos: " + getNumeroRectangulos() + "\n";
+                + "Numero de rectangulos: " + getNumeroRectangulos() + "\n"
+                + "Ingrese el Fix a utilizar: " + getFIX();
         return datos;
     }
 

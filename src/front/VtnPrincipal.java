@@ -2,7 +2,7 @@
 package front;
 
 import back.Valores;
-import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class VtnPrincipal extends javax.swing.JFrame {
 
@@ -11,6 +11,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     public VtnPrincipal() {
         initComponents();
         objIntegracion = new Valores();
+        JTextFieldOnlyNumbers();
     }
 
     @SuppressWarnings("unchecked")
@@ -34,10 +35,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         lblFix = new javax.swing.JLabel();
         txtFix = new javax.swing.JTextField();
-        btnGuardar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        tabMostrarCalculo = new javax.swing.JPanel();
-        btn_Calcular = new javax.swing.JButton();
+        txtResultado = new javax.swing.JTextField();
+        lblResultado = new javax.swing.JLabel();
+        btnPorIzquierda = new javax.swing.JButton();
+        btnPorDerecha = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,20 +97,39 @@ public class VtnPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnGuardar.setText("Guardar Datos");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ImagenesINR/Simbolo Integral.png"))); // NOI18N
+
+        txtResultado.setBackground(new java.awt.Color(204, 204, 204));
+        txtResultado.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        txtResultado.setEnabled(false);
+
+        lblResultado.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblResultado.setForeground(new java.awt.Color(51, 51, 51));
+        lblResultado.setText("RESULTADO");
+
+        btnPorIzquierda.setText("Aprox. Por Izquierda");
+        btnPorIzquierda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+                btnPorIzquierdaActionPerformed(evt);
             }
         });
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ImagenesINR/Simbolo Integral.png"))); // NOI18N
+        btnPorDerecha.setText("Aprox. Por Derecha");
+        btnPorDerecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPorDerechaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout tabIngresarDatosLayout = new javax.swing.GroupLayout(tabIngresarDatos);
         tabIngresarDatos.setLayout(tabIngresarDatosLayout);
         tabIngresarDatosLayout.setHorizontalGroup(
             tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabIngresarDatosLayout.createSequentialGroup()
+                .addGap(128, 128, 128)
+                .addComponent(lblTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabIngresarDatosLayout.createSequentialGroup()
                 .addGap(73, 73, 73)
                 .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(tabIngresarDatosLayout.createSequentialGroup()
@@ -117,49 +138,48 @@ public class VtnPrincipal extends javax.swing.JFrame {
                             .addComponent(lblSuperior)
                             .addGroup(tabIngresarDatosLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(txtSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4))
+                                .addComponent(txtSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(tabIngresarDatosLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNumRect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2))
-                        .addGap(113, 113, 113))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNumRect, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)))
                     .addGroup(tabIngresarDatosLayout.createSequentialGroup()
                         .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblInferior)
-                            .addComponent(lblSimInte))
+                            .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(tabIngresarDatosLayout.createSequentialGroup()
+                                    .addGap(28, 28, 28)
+                                    .addComponent(txtInferior, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(tabIngresarDatosLayout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblSimInte))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFunción)
                             .addGroup(tabIngresarDatosLayout.createSequentialGroup()
+                                .addComponent(txtFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(tabIngresarDatosLayout.createSequentialGroup()
-                                        .addComponent(txtFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblFix)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(tabIngresarDatosLayout.createSequentialGroup()
-                                        .addComponent(lblFunción)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)))
-                                .addGap(113, 113, 113))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabIngresarDatosLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnGuardar)
-                                .addGap(31, 31, 31))))))
-            .addGroup(tabIngresarDatosLayout.createSequentialGroup()
-                .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblFix)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFix, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(70, 70, 70))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabIngresarDatosLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(lblResultado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(tabIngresarDatosLayout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(lblTitulo))
-                    .addGroup(tabIngresarDatosLayout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(txtInferior, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnPorIzquierda)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPorDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         tabIngresarDatosLayout.setVerticalGroup(
             tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,80 +191,62 @@ public class VtnPrincipal extends javax.swing.JFrame {
                     .addComponent(lblSuperior)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(tabIngresarDatosLayout.createSequentialGroup()
-                        .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNumRect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFix))
-                        .addGap(44, 44, 44))
+                .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(tabIngresarDatosLayout.createSequentialGroup()
                         .addComponent(txtSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(tabIngresarDatosLayout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(lblSimInte)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4))
                             .addGroup(tabIngresarDatosLayout.createSequentialGroup()
                                 .addGap(9, 9, 9)
                                 .addComponent(lblFunción)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))))
-                        .addGap(2, 2, 2)
-                        .addComponent(txtInferior, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel1)))
+                            .addGroup(tabIngresarDatosLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(lblSimInte)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabIngresarDatosLayout.createSequentialGroup()
+                        .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtNumRect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblFix))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtInferior, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblInferior)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPorDerecha, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnPorIzquierda))
+                .addGap(18, 18, 18)
                 .addGroup(tabIngresarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblInferior)
-                    .addComponent(btnGuardar))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblResultado))
+                .addGap(18, 18, 18))
         );
 
         tabMetodoRectangulo.addTab("Ingresar", tabIngresarDatos);
-
-        tabMostrarCalculo.setBackground(new java.awt.Color(255, 255, 255));
-
-        btn_Calcular.setText("Calcular");
-
-        javax.swing.GroupLayout tabMostrarCalculoLayout = new javax.swing.GroupLayout(tabMostrarCalculo);
-        tabMostrarCalculo.setLayout(tabMostrarCalculoLayout);
-        tabMostrarCalculoLayout.setHorizontalGroup(
-            tabMostrarCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tabMostrarCalculoLayout.createSequentialGroup()
-                .addContainerGap(445, Short.MAX_VALUE)
-                .addComponent(btn_Calcular, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
-        );
-        tabMostrarCalculoLayout.setVerticalGroup(
-            tabMostrarCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabMostrarCalculoLayout.createSequentialGroup()
-                .addGap(0, 193, Short.MAX_VALUE)
-                .addComponent(btn_Calcular, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
-        );
-
-        tabMetodoRectangulo.addTab("Mostrar", tabMostrarCalculo);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(tabMetodoRectangulo, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(tabMetodoRectangulo, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(tabMetodoRectangulo, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(tabMetodoRectangulo, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -265,16 +267,65 @@ public class VtnPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFixActionPerformed
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    private void btnPorIzquierdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPorIzquierdaActionPerformed
 
+        objIntegracion.setLimiteInferior(Double.parseDouble(txtInferior.getText()));
         objIntegracion.setLimiteSuperior(Double.parseDouble(txtSuperior.getText()));
-        objIntegracion.setLimiteSuperior(Double.parseDouble(txtInferior.getText()));
-        objIntegracion.setNumeroRectangulos(Integer.parseInt(txtNumRect.getText()));
         objIntegracion.setFuncion(txtFuncion.getText());
-        JOptionPane.showMessageDialog(this, "Datos guardados con exito", "Guardar datos", 1);
+        objIntegracion.setNumeroRectangulos(Integer.parseInt(txtNumRect.getText()));
+        objIntegracion.setFIX(txtFix.getText());
+        
+        objIntegracion.por_Izquierda();
+        objIntegracion.calcular_FIX();
+        
+        String cadena = String.valueOf(objIntegracion.getAproximacion());
+        txtResultado.setText(cadena);
+    }//GEN-LAST:event_btnPorIzquierdaActionPerformed
 
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    private void btnPorDerechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPorDerechaActionPerformed
+        // TODO add your handling code here:
+        
+        objIntegracion.setLimiteInferior(Double.parseDouble(txtInferior.getText()));
+        objIntegracion.setLimiteSuperior(Double.parseDouble(txtSuperior.getText()));
+        objIntegracion.setFuncion(txtFuncion.getText());
+        objIntegracion.setNumeroRectangulos(Integer.parseInt(txtNumRect.getText()));
+        objIntegracion.setFIX(txtFix.getText());
+        
+        objIntegracion.por_Derecha();
+        objIntegracion.calcular_FIX();
+        
+        String cadena = String.valueOf(objIntegracion.getAproximacion());
+        txtResultado.setText(cadena);
+    }//GEN-LAST:event_btnPorDerechaActionPerformed
 
+    public JTextField[] cajasTexto() {
+        JTextField elementsArray[] = {
+            txtSuperior,
+            txtInferior,
+            txtNumRect,
+            txtFix,};
+        return elementsArray;
+    }
+
+    public void JTextFieldOnlyNumbers() {
+        for (JTextField jTextField : cajasTexto()) {
+            jTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+                @Override
+                public void keyTyped(java.awt.event.KeyEvent evt) {
+                    KeyPressed(evt);
+                }
+            });
+        }
+    }
+
+    private void KeyPressed(java.awt.event.KeyEvent evt) {
+        int key = evt.getKeyChar();
+
+        if (!(key >= 48 && key <= 57) && !(key == 45) && !(key == 46)) {
+            evt.consume();
+        }
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -308,8 +359,8 @@ public class VtnPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btn_Calcular;
+    private javax.swing.JToggleButton btnPorDerecha;
+    private javax.swing.JButton btnPorIzquierda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -318,16 +369,17 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblFix;
     private javax.swing.JLabel lblFunción;
     private javax.swing.JLabel lblInferior;
+    private javax.swing.JLabel lblResultado;
     private javax.swing.JLabel lblSimInte;
     private javax.swing.JLabel lblSuperior;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel tabIngresarDatos;
     private javax.swing.JTabbedPane tabMetodoRectangulo;
-    private javax.swing.JPanel tabMostrarCalculo;
     private javax.swing.JTextField txtFix;
     private javax.swing.JTextField txtFuncion;
     private javax.swing.JTextField txtInferior;
     private javax.swing.JTextField txtNumRect;
+    private javax.swing.JTextField txtResultado;
     private javax.swing.JTextField txtSuperior;
     // End of variables declaration//GEN-END:variables
 }
