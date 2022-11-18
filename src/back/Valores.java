@@ -119,12 +119,12 @@ public class Valores {
     private void evaluaciones() {
         Expression expression;
         this.iteraciones();
-
-        for (int i = 0; i <= this.getNumeroRectangulos(); i++) {
+        this.evaluaciones = new double[this.getNumeroRectangulos()];
+        for (int i = 0; i < this.getNumeroRectangulos(); i++) {
             expression = new ExpressionBuilder(this.getFuncion())
-                    .variables("X")
+                    .variables("x")
                     .build()
-                    .setVariable("X", iteraciones[i]);
+                    .setVariable("x", getIteraciones(i));
 
             evaluaciones[i] = expression.evaluate();//Evalúa nuestra función.
         }
@@ -134,8 +134,9 @@ public class Valores {
     public double por_Izquierda() {
         double suma = 0;
         double resultado = 0;
+
         evaluaciones();
-        for (int i = 0; i < getNumeroRectangulos(); i++) {
+        for (int i = 0; i < getNumeroRectangulos() - 1; i++) {
             suma += getEvaluaciones(i);
         }
         resultado = getDeltaX() * suma;
