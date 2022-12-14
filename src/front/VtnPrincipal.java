@@ -1,13 +1,13 @@
-
 package front;
 
 import back.Valores;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class VtnPrincipal extends javax.swing.JFrame {
 
     Valores objIntegracion = null;
-    
+
     public VtnPrincipal() {
         initComponents();
         objIntegracion = new Valores();
@@ -60,6 +60,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         txtSuperior.setBackground(new java.awt.Color(204, 204, 204));
         txtSuperior.setForeground(new java.awt.Color(0, 0, 0));
+        txtSuperior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSuperiorActionPerformed(evt);
+            }
+        });
 
         lblFunción.setForeground(new java.awt.Color(0, 0, 0));
         lblFunción.setText("Función");
@@ -269,34 +274,61 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
     private void btnPorIzquierdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPorIzquierdaActionPerformed
 
-        objIntegracion.setLimiteInferior(Double.parseDouble(txtInferior.getText()));
-        objIntegracion.setLimiteSuperior(Double.parseDouble(txtSuperior.getText()));
-        objIntegracion.setFuncion(txtFuncion.getText());
-        objIntegracion.setNumeroRectangulos(Integer.parseInt(txtNumRect.getText()));
-        objIntegracion.setFIX(txtFix.getText());
-        
-        objIntegracion.por_Izquierda();
-        objIntegracion.calcular_FIX();
-        
-        String cadena = String.valueOf(objIntegracion.getAproximacion());
-        txtResultado.setText(cadena);
+        if (casillas_Vacias()) {
+            return;
+        }
+
+        double a = Double.parseDouble(txtInferior.getText());
+        double b = Double.parseDouble(txtSuperior.getText());
+
+        if (a < b) {
+            objIntegracion.setLimiteInferior(Double.parseDouble(txtInferior.getText()));
+            objIntegracion.setLimiteSuperior(Double.parseDouble(txtSuperior.getText()));
+            objIntegracion.setFuncion(txtFuncion.getText());
+            objIntegracion.setNumeroRectangulos(Integer.parseInt(txtNumRect.getText()));
+            objIntegracion.setFIX(txtFix.getText());
+
+            objIntegracion.por_Izquierda();
+            objIntegracion.calcular_FIX();
+
+            String cadena = String.valueOf(objIntegracion.getAproximacion());
+            txtResultado.setText(cadena);
+        } else {
+            JOptionPane.showMessageDialog(this, "Verifica las entradas!!");
+        }
+
+
     }//GEN-LAST:event_btnPorIzquierdaActionPerformed
 
     private void btnPorDerechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPorDerechaActionPerformed
         // TODO add your handling code here:
-        
-        objIntegracion.setLimiteInferior(Double.parseDouble(txtInferior.getText()));
-        objIntegracion.setLimiteSuperior(Double.parseDouble(txtSuperior.getText()));
-        objIntegracion.setFuncion(txtFuncion.getText());
-        objIntegracion.setNumeroRectangulos(Integer.parseInt(txtNumRect.getText()));
-        objIntegracion.setFIX(txtFix.getText());
-        
-        objIntegracion.por_Derecha();
-        objIntegracion.calcular_FIX();
-        
-        String cadena = String.valueOf(objIntegracion.getAproximacion());
-        txtResultado.setText(cadena);
+        if (casillas_Vacias()) {
+            return;
+        }
+
+        double a = Double.parseDouble(txtInferior.getText());
+        double b = Double.parseDouble(txtSuperior.getText());
+        if (a < b) {
+            casillas_Vacias();
+            objIntegracion.setLimiteInferior(Double.parseDouble(txtInferior.getText()));
+            objIntegracion.setLimiteSuperior(Double.parseDouble(txtSuperior.getText()));
+            objIntegracion.setFuncion(txtFuncion.getText());
+            objIntegracion.setNumeroRectangulos(Integer.parseInt(txtNumRect.getText()));
+            objIntegracion.setFIX(txtFix.getText());
+
+            objIntegracion.por_Derecha();
+            objIntegracion.calcular_FIX();
+
+            String cadena = String.valueOf(objIntegracion.getAproximacion());
+            txtResultado.setText(cadena);
+        } else {
+            JOptionPane.showMessageDialog(this, "Verifica las entradas!!");
+        }
     }//GEN-LAST:event_btnPorDerechaActionPerformed
+
+    private void txtSuperiorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSuperiorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSuperiorActionPerformed
 
     public JTextField[] cajasTexto() {
         JTextField elementsArray[] = {
@@ -325,7 +357,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
             evt.consume();
         }
     }
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -337,16 +369,24 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VtnPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VtnPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VtnPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VtnPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -356,6 +396,34 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 new VtnPrincipal().setVisible(true);
             }
         });
+    }
+
+    private boolean casillas_Vacias() {
+        if (txtSuperior.getText().isBlank() && txtInferior.getText().isBlank() && txtFuncion.getText().isBlank() && txtNumRect.getText().isBlank() && txtFix.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos están vacios!");
+            return true;
+        }
+        if (txtSuperior.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "El campo del limite Superior está vacio!");
+            return true;
+        }
+        if (txtInferior.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "El campo del limite Inferior está vacio!");
+            return true;
+        }
+        if (txtFuncion.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "El campo de la función está vacio!");
+            return true;
+        }
+        if (txtNumRect.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "El campo de numero de rectangulos está vacio!");
+            return true;
+        }
+        if (txtFix.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "El campo de FIX está vacio!");
+            return true;
+        }
+        return false;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
